@@ -2,6 +2,7 @@ import tabula
 import math
 import json
 import os
+from covid19 import Nhx
 from tabulate import tabulate
 import platform
 import matplotlib
@@ -10,11 +11,6 @@ import numpy as np
 
 OS = platform.system()
 scriptDir = os.path.dirname(os.path.abspath(__file__))
-
-def kasus(x, N, R, P):
-    RP = float(R)*float(P)
-    total = ((1+RP)**float(x))*float(N)
-    return(math.floor(total))
 
 def getTable(src):
     percobaan = []
@@ -39,7 +35,8 @@ def completeTable(table):
 def calculateAnswer(question, data):
     ans = 'None'
     if question == 5:
-        ans = kasus(data[4], data[0], data[1], data[2])
+        Nh, h = Nhx(float(data[0]), float(data[1]), float(data[2]), float(data[4]))
+        ans = math.floor(Nh)
     elif question == 3:
         ans = '1 + {}'.format(float(data[1])*float(data[2]))
     return '{}'.format(ans)
@@ -63,8 +60,9 @@ def createGraph(data):
     x = []
     y = []
     for i in range(mx):
-        y.append(kasus(i, N, R, P))
-        x.append(i+1)
+        Nh, h = Nhx(N, R, P, i)
+        y.append(Nh)
+        x.append(h+1)
 
     fig, ax = plt.subplots()
     ax.plot(x, y)
