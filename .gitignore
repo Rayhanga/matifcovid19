@@ -1,0 +1,6 @@
+.vscode
+venv
+Grafik
+
+*.png
+*.pdf
