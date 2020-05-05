@@ -2,10 +2,11 @@ import tabula
 import math
 import json
 import os
+import random
 from covid19 import Nhx
 from tabulate import tabulate
 import platform
-import matplotlib
+import matplotlib as mpl
 import matplotlib.pyplot as plt
 import numpy as np
 
@@ -82,7 +83,31 @@ table = getTable('source.pdf')
 os.system('cls' if OS == 'Windows' else 'clear')
 completeTable(table)
 
-print(tabulate(table[1:], headers=table[0], tablefmt="github"))
+style=[
+    "plain",
+    "simple",
+    "github",
+    "grid",
+    "fancy_grid",
+    "pipe",
+    "orgtbl",
+    "jira",
+    "presto",
+    "pretty",
+    "psql",
+    "rst",
+    "mediawiki",
+    "moinmoin",
+    "youtrack",
+    "latex",
+    "latex_booktabs",
+    "textile",
+]
+graphStyle = plt.style.available
+
+print(tabulate(table[1:], headers="firstrow", tablefmt=style[random.randint(0, len(style))]))
+
+mpl.style.use(graphStyle[random.randint(0, len(graphStyle))])
 
 for row in table[1:]:
     createGraph(row)
