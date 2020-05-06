@@ -105,7 +105,7 @@ style=[
 ]
 graphStyle = plt.style.available
 
-print(tabulate(table[1:], headers="firstrow", tablefmt=style[random.randint(0, len(style))]))
+print(tabulate(table, headers="firstrow", tablefmt=style[random.randint(0, len(style))]))
 
 mpl.style.use(graphStyle[random.randint(0, len(graphStyle))])
 
